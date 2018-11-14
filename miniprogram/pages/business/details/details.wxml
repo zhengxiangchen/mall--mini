@@ -1,0 +1,59 @@
+<i-action-sheet visible="{{visible}}" actions="{{actions}}" show-cancel bind:cancel="handleCancel" bind:click="selectSpec"/>
+<i-message id="message" />
+<view class="main">
+    <swiper class="swiper" indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
+        <block wx:for="{{swiperImgs}}" wx:key="{{index}}">
+            <swiper-item>
+                <image src="{{item}}" mode='scaleToFill' class='swiper-img' data-i='{{index}}' bindtap='showImg'/>
+            </swiper-item>
+        </block>
+    </swiper>
+    <view class="goods-box">
+        <i-panel title="基础用法">
+            <view style="padding: 16px">
+                <i-input-number value="{{ num }}" min="1" max="100" bindchange="numberChange" />
+            </view>
+        </i-panel>
+
+        <i-panel title="基础用法">
+          <view wx:if="{{haveSpec}}" style="padding-bottom: 16px">
+            规格：<i-tag class="i-tags" name="{{specName}}" color="blue" bindchange="showSpec" checkable="true">{{specName}}</i-tag>
+          </view>
+          <view wx:else>
+            <i-button bind:click="showSpec" type="ghost" shape="circle" size="small" inline>选择规格</i-button>
+          </view>
+        </i-panel>
+        <view class="goods-operation" bindtap="addToCart">
+            <text class="goods-to-cart">加入购物车</text>
+        </view>
+        <image wx:if="{{show}}" src="/image/cart1.png" class="to-carts-icon"></image>
+        <view class="goods-title">{{goods.goodsName}}</view>
+        <view class="goods-price">￥ {{goodsPrice}} 元</view>
+    </view>
+    <view class="goods-tab-box">
+        <view class="goods-tab-nav {{curIndex === 0 ?'on':''}}" bindtap="bindTap" data-index="0">商品详情</view>
+        <view class="goods-tab-nav {{curIndex === 1 ?'on':''}}" bindtap="bindTap" data-index="1">产品参数</view>
+        <view class="goods-tab-nav {{curIndex === 2 ?'on':''}}" bindtap="bindTap" data-index="2">实拍</view>
+        <view class="goods-content">
+            <view wx:if="{{curIndex === 0}}" wx:for="{{goods.goodsIntroduceImgs}}" wx:key="index">
+              <image src="{{imgStaticPath}}{{item}}" mode="widthFix"></image>
+            </view>
+            <view wx:if="{{curIndex === 1}}">
+              <image src="{{imgStaticPath}}{{goods.goodsIntroduce}}" mode="widthFix"></image>
+            </view>
+            <view wx:if="{{curIndex === 2}}" wx:for="{{goods.goodsRealImgs}}" wx:key="index">
+              <image src="{{imgStaticPath}}{{item}}" mode="widthFix"></image>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="cart-footer" bindtap='toCart' wx:if="{{hasCarts}}">
+    <text class="cart-footer-cart">去购物车</text>
+    <navigator open-type="switchTab" url="../cart/cart">
+        <view class="carts-icon {{scaleCart?'on':''}}">
+            <i-icon type="publishgoods_fill" size="32"/>
+            <text class="carts-icon-num" wx:if="{{hasCarts}}">{{totalNum}}</text>
+        </view>
+    </navigator>
+</view>

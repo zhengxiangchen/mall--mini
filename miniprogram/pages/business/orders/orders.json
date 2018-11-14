@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "i-toast": "../../../dist/toast/index",
+    "i-message": "../../../dist/message/index",
+    "i-notice-bar": "../../../dist/notice-bar/index",
+    "i-tag": "../../../dist/tag/index",
+    "i-input": "../../../dist/input/index",
+    "i-panel": "../../../dist/panel/index"
+  }
+}

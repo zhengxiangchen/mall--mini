@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "i-input-number": "../../../dist/input-number/index",
+    "i-tag": "../../../dist/tag/index",
+    "i-button": "../../../dist/button/index",
+    "i-action-sheet": "../../../dist/action-sheet/index",
+    "i-message": "../../../dist/message/index",
+    "i-icon": "../../../dist/icon/index"
+  }
+}

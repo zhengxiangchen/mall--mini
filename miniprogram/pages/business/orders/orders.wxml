@@ -1,0 +1,45 @@
+<i-toast id="toast" />
+<i-message id="message" />
+<i-notice-bar icon="systemprompt" closable>
+    通知：下单页面。
+</i-notice-bar>
+<view class="main">
+    <view wx:if="{{hasAddress}}" class="orders-address" bindtap='addressManager'>
+      <view wx:if="{{isDbAddress}}">
+          <text class="orders-address-name">收货人: {{address.name}}</text>
+          <text class="orders-address-phone">联系电话: {{address.phone}}</text>
+          <view class="orders-address-detail">详细地址: {{address.detail}}</view>
+      </view>
+      <view wx:else>
+          <text class="orders-address-name">收货人: {{address.userName}}</text>
+          <text class="orders-address-phone">联系电话: {{address.telNumber}}</text>
+          <view class="orders-address-detail">
+            详细地址: {{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}
+          </view>
+      </view>
+    </view>
+    <view wx:else class="orders-no-address" bindtap='addressManager'>添加收货地址</view>
+
+    <view class="orders-box">
+        <view wx:for="{{orders}}" wx:key="index" class="orders-list">
+            <image class="orders-thumb" src="{{item.goodsIndexImg}}"></image>
+            <view class="orders-pro-name">{{item.goodsName}}</view>
+            <i-tag class="i-tags" name="{{item.spec}}" color="blue">{{item.spec}}</i-tag>
+            <view class="orders-pro-price">￥{{item.goodsPrice}}</view>
+            <view class="orders-count-num">×{{item.num}}</view>
+        </view>
+        <i-panel>
+            <i-input value="" title="备注" placeholder="请填写您的微信号或手机号" bind:change='bindWxNumber'/>
+        </i-panel>
+    </view>
+
+    
+
+    <view class="orders-footer">
+        <view class="orders-footer-total">付款合计：￥{{total}}</view>
+        <!-- <view class="orders-footer-btn" bindtap="toPay">去付款</view> -->
+        <form bind:submit="toPay" report-submit="true" class="orders-footer-btn">
+            <button formType="submit" class="orders-footer-btn" style='height:53px;'>去下单</button>
+        </form>
+    </view>
+</view>

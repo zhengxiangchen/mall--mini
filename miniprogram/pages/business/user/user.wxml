@@ -1,0 +1,58 @@
+<i-modal title="帅哥店家微信号" visible="{{visible}}" actions="{{actions}}" bind:click="handleClick">
+    <view>{{wxNumber}}</view>
+</i-modal>
+<view class="main">
+    <view class="header">
+        <open-data type="userAvatarUrl" class="thumb"></open-data>
+        <open-data type="userNickName" class="nickname"></open-data>
+        <text class="about" bindtap='showWe'>关于我们</text>
+    </view>
+    <view class="address-box">
+        <view class="address-manage" bindtap='addressManager'>
+            <text>地址管理</text>
+        </view>
+        <view wx:if="{{hasAddress}}">
+          <view wx:if="{{isDbAddress}}">
+            <i-collapse>
+              <i-collapse-item title="我的地址" name="name1">
+                  <view slot="content">
+                      <i-input value="{{address.name}}" title="收货人" disabled />
+                      <i-input value="{{address.phone}}" title="联系电话" disabled />
+                      <i-input value="{{address.detail}}" title="详细地址" disabled />
+                  </view>
+              </i-collapse-item> 
+            </i-collapse>
+          </view>
+          <view wx:else>
+            <i-collapse>
+              <i-collapse-item title="我的地址" name="name1">
+                  <view slot="content">
+                      <i-input value="{{address.userName}}" title="收货人" disabled />
+                      <i-input value="{{address.telNumber}}" title="联系电话" disabled />
+                      <i-input value="{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}" title="详细地址" disabled />
+                  </view>
+              </i-collapse-item> 
+            </i-collapse>
+          </view>
+        </view>
+    </view>
+    <view class="orders-box">
+      <view wx:if="{{isAdmin}}">
+        <view class="orders">我是店主</view>
+        <i-cell-group>
+          <i-cell title="登录用户" is-link url="/pages/business/loginUserInfo/loginUserInfo"></i-cell>
+          <i-cell title="全部订单" is-link url="/pages/business/haveOrderUsers/haveOrderUsers"></i-cell>
+        </i-cell-group>
+      </view>
+
+      <view wx:else>
+        <view class="orders">我的订单</view>
+        <i-cell-group>
+          <view wx:if="{{orders.length > 0}}" wx:for="{{orders}}" wx:key="index">
+              <i-cell title="订单编号:{{item.id}}" is-link url="/pages/business/orderDetails/orderDetails?uuid={{item.id}}" 
+              value="{{item.orderStatus}}"></i-cell>
+          </view>
+        </i-cell-group>
+      </view>
+    </view>
+</view>
